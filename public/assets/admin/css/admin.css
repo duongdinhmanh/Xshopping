@@ -1,0 +1,89 @@
+/* Phần category */
+.row_none select {
+    display: none!important;
+}
+.data-table tr th select{
+    width: 100%!important;
+    height: 25px!important;
+    padding: 10px 5px!important;
+
+}
+.data-table tr th {
+    padding: 10px 5px!important;
+}
+
+#cat_table_filter input {
+    width: 300px;
+    height: 30px;
+    border-radius: 25px;
+    padding: 10px;
+}
+.page-title .title_right {
+    text-align: right;
+}
+.page-title .title_right #lang {
+    left: -47px!important;
+}
+.clearfix_top{
+    border-bottom: 1px solid;
+    margin-bottom: 15px;
+}
+.imagePreview {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.checkbox label, .radio label {
+    padding-left: 0px!important;
+}
+
+.site_title i {
+    border: none;
+}
+
+/* Datatable */
+
+table.dataTable thead th, table.dataTable thead td{
+    padding: 5px 25px 5px 7px!important;
+}
+
+#category_img .thumbnail {
+    height: 445px!important;
+    overflow: hidden;
+}
+
+ul.bar_tabs {
+    background: none;
+    margin-bottom: 50px;
+}
+
+#send_cat {
+    float: right;
+}
+#cancel {
+    float: right;
+}
+
+.title_create_right {
+    text-align: right;
+}
+.title_create_left {
+    text-align: left;
+}
+
+.del_sub_item {
+    display: inline;
+}
+
+/* Secsion Products */
+.add_pro {
+    margin-bottom: 10px;
+}
+
+#list_add_pro {
+    padding:  0px!important;
+}
+#list_add_pro li {
+    list-style-type: none;
+}
+
