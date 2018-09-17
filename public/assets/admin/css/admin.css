@@ -80,10 +80,31 @@ ul.bar_tabs {
     margin-bottom: 10px;
 }
 
-#list_add_pro {
+#list_add_pro, #list_add_img_pro {
     padding:  0px!important;
 }
-#list_add_pro li {
+#list_add_pro li, #list_add_img_pro li   {
     list-style-type: none;
 }
 
+#users-table_filter  input{
+    width: 240px;
+}
+.dataTables_wrapper {
+    margin-top: 26px;
+}
+
+/* phần search products*/
+.twitter-typeahead{
+    width: 100%!important;
+}
+
+.tt-menu {
+    width: 100%!important;
+}
+#add_list_products {
+    padding:  0px!important;
+}
+#add_list_products li {
+    list-style-type: none;
+}

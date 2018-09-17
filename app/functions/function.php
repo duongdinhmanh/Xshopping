@@ -79,11 +79,11 @@ function change_time_to_text($time, $type = null) {
 		$text = '';
 	}
 	if ((time() - $time) < 60) {
-		return $text . round(time() - $time) . ' giây trước';
+		return $text . round(time() - $time) . __('config.seconds_ago');
 	} elseif ((time() - $time) < 60 * 60) {
-		return $text . round((time() - $time) / 60) . ' phút trước';
+		return $text . round((time() - $time) / 60) . __('config.minute_ago');
 	} elseif ((time() - $time) < 60 * 60 * 24) {
-		return $text . round(((time() - $time) / 60) / 60) . ' giờ trước';
+		return $text . round(((time() - $time) / 60) / 60) . __('config.hours_ago');
 	} else {
 		return date('H:i:s A d/m/Y', $time);
 	}

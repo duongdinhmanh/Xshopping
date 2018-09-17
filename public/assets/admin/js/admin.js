@@ -3,17 +3,56 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-     window.lastURL = $('#fieldID').val();
+    window.lastURL = $('#fieldID').val();
      setInterval(function () {
-         if($('#fieldID').val() != window.lastURL) {
-             var url = $('#fieldID').val();
-             if(url == '')url = "assets/upload/config/no-image.png";
-             $('.imagePreview').attr('src', url);
+        if($('#fieldID').val() != window.lastURL) {
+            var url = $('#fieldID').val();
+            if(url == '')url = "assets/upload/config/no-image.png";
+            $('.imagePreview').attr('src', url);
              window.lastURL = url;
          };
      });
-});
 
+});
+// Phan Products
+$(document).ready(function() {
+    window.lastURL = $('#fieldID_img').val();
+        setInterval(function () {
+            if($('#fieldID_img').val() != window.lastURL) {
+                var url =  $('#fieldID_img').val();
+                if(url == '')url = "assets/upload/config/no-image.png";
+                 $('.imagePreview_img').attr('src', url);
+                 window.lastURL = url;
+             };
+         });
+    window.lastURL = $('#fieldID_img1').val();
+        setInterval(function () {
+            if($('#fieldID_img1').val() != window.lastURL) {
+                var url =  $('#fieldID_img1').val();
+                if(url == '')url = "assets/upload/config/no-image.png";
+                 $('.imagePreview_img1').attr('src', url);
+                 window.lastURL = url;
+             };
+         });
+    window.lastURL = $('#fieldID_img2').val();
+        setInterval(function () {
+            if($('#fieldID_img2').val() != window.lastURL) {
+                var url =  $('#fieldID_img2').val();
+                if(url == '')url = "assets/upload/config/no-image.png";
+                 $('.imagePreview_img2').attr('src', url);
+                 window.lastURL = url;
+             };
+         });
+    window.lastURL = $('#fieldID_img3').val();
+        setInterval(function () {
+            if($('#fieldID_img3').val() != window.lastURL) {
+                var url =  $('#fieldID_img3').val();
+                if(url == '')url = "assets/upload/config/no-image.png";
+                 $('.imagePreview_img3').attr('src', url);
+                 window.lastURL = url;
+             };
+         });
+});
 $(document).ready(function() {
 	$(function () {
 	    $(".input_slug").keyup(function () {
@@ -46,7 +85,7 @@ $(document).ready(function() {
           $('#list_add_pro').append('<li>'+html+'</li>');
      });
 
-     $('#list_add_pro').on('click', '.add_list_address', function() {
+     $('#list_add_pro').on('click', '.del_pro_options', function() {
          if (!confirm('Bạn chắc chắn muốn xóa')) {
              return false;
          }else{
@@ -55,99 +94,6 @@ $(document).ready(function() {
      });
 });
 
-
-
-// $(document).ready(function() {
-// 	$('.input_slug').keyup(function(){
-// 		var input = $(this).val();
-// 		$('.output_slug').val(input);
-// 	});
-
-// 	$('.input_slug_vi').keyup(function(){
-// 		var input = $(this).val();
-// 		$('.output_slug_vi').val(input);
-// 	})
-// });
-// $(document).ready(function() {
-// 	window.lastURL = $('#fieldID').val();
-// 	setInterval(function () {
-// 		if($('#fieldID').val() != window.lastURL) {
-// 			var url = $('#fieldID').val();
-// 			if(url == '')url = "assets/upload/category/700x300.png";
-// 			$('.imagePreview').attr('src', url);
-// 			window.lastURL = url;
-// 		};
-// 	});
-// });
-
-// $(document).ready(function() {
-// 	window.lastURL = $('#fieldID_logo').val();
-// 	setInterval(function () {
-// 		if($('#fieldID_logo').val() != window.lastURL) {
-// 			var url = $('#fieldID_logo').val();
-// 			if(url == '')url =  "assets/upload/logo/demo_logo.png";
-// 			$('.imagePreview_logo').attr('src', url);
-// 			window.lastURL = url;
-// 		};
-// 	});
-// });
-
-// $(document).ready(function() {
-// 	window.lastURL = $('#fieldID_slide').val();
-// 	setInterval(function () {
-// 		if($('#fieldID_slide').val() != window.lastURL) {
-// 			var url = $('#fieldID_slide').val();
-// 			if(url == '')url =  "assets/upload/slide/slide_demo.png";
-// 			$('.imagePreview_slide').attr('src', url);
-// 			window.lastURL = url;
-// 		};
-// 	});
-// });
-
-// $(document).ready(function() {
-// 	window.lastURL = $('#fieldID_post').val();
-// 	setInterval(function () {
-// 		if($('#fieldID_post').val() != window.lastURL) {
-// 			var url = $('#fieldID_post').val();
-// 			if(url == '')url =  "assets/upload/post/demo.png";
-// 			$('.imagePreview_post').attr('src', url);
-// 			window.lastURL = url;
-// 		};
-// 	});
-// });
-// $(document).ready(function() {
-// 	window.lastURL = $('#fieldID_logo_web').val();
-// 	setInterval(function () {
-// 		if($('#fieldID_logo_web').val() != window.lastURL) {
-// 			var url = $('#fieldID_logo_web').val();
-// 			if(url == '')url =  "assets/upload/config/demo.png";
-// 			$('.imagePreview_logo_web').attr('src', url);
-// 			window.lastURL = url;
-// 		};
-// 	});
-// });
-// $(document).ready(function() {
-// 	window.lastURL = $('#fieldID_favicon').val();
-// 	setInterval(function () {
-// 		if($('#fieldID_favicon').val() != window.lastURL) {
-// 			var url = $('#fieldID_favicon').val();
-// 			if(url == '')url =  "assets/upload/config/demo.png";
-// 			$('.imagePreview_favicon').attr('src', url);
-// 			window.lastURL = url;
-// 		};
-// 	});
-// });
-// $(document).ready(function() {
-// 	window.lastURL = $('#fieldID_quang_cao').val();
-// 	setInterval(function () {
-// 		if($('#fieldID_quang_cao').val() != window.lastURL) {
-// 			var url = $('#fieldID_quang_cao').val();
-// 			if(url == '')url =  "assets/upload/config/demo.png";
-// 			$('.imagePreview_quang_cao').attr('src', url);
-// 			window.lastURL = url;
-// 		};
-// 	});
-// });
 
 
 // Phần config
@@ -212,5 +158,6 @@ $(document).ready(function() {
 	    });
   	}).change();
 });
+
 
 

@@ -30,25 +30,28 @@
 	<div class="clearfix"></div>
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12">
+              @include('admin.message')
 			<table class="table table-hover display" id="users-table" style="width:100%">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>IMAGE</th>
-						<th>NAME-PRODUCT</th>
-						<th>CATEGORY</th>
-						<th>LOCATION</th>
-						<th>Status</th>
-						<th>Action</th>
+						<th>{{ trans('config.images') }}</th>
+						<th>{{ trans('config.name_pro') }}</th>
+						<th>{{ trans('config.category') }}</th>
+						<th>{{ trans('config.location') }}</th>
+                        <th>{{ trans('config.Created_at') }}</th>
+						<th>{{ trans('config.Status') }}</th>
+						<th>{{ trans('config.Action') }}</th>
 					</tr>
 				</thead>
 				<tfoot class="data-table">
 					<tr>
 						<th></th>
+						<th class="row_none"></th>
 						<th></th>
 						<th></th>
-						<th></th>
-						<th></th>
+						<th class="row_none"></th>
+                        <th></th>
 						<th class="row_none"></th>
 						<th class="row_none"></th>
 					</tr>
@@ -58,7 +61,7 @@
 	</div>
 </div>
 @endsection
-@push('scripts')
+@push('scripts_products')
 <script>
   $(function() {
       $('#users-table').DataTable({
@@ -67,10 +70,15 @@
           "ajax": "{{ route('getdata_pro') }}",
          "columns": [
               { "data": 'id', "name": 'ID' },
-              { "data": 'images', "name": 'images' },
+              { "data": 'images', "name": 'images',
+                "render": function (data, type, full, meta) {
+                    return "<img src=\"assets/upload/products/" + data + "\" height=\"auto\" \" width=\"50\"/>";
+                },
+              },
               { "data": 'name', "name": 'name' },
-              { "data": 'cat_id', "name": 'cat_id' },
+              { "data": 'cat_id', "name": 'cat_id ' },
               { "data": 'location', "name": 'location' },
+              { "data": 'created_at', "name": 'created_at' },
               { "data": 'status', "name": 'status'},
               { "data": 'action', "name": 'action', orderable: false, searchable: false},
           ],
@@ -95,7 +103,36 @@
                     }
                 } );
             } );
+            $('.radio input[name="location"]').on('click', function() {
+                var locations_url = $(this).attr('locations');
+                var val = $(this).val();
+                if (del_pro('you really want to change locations..?')==true) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: 'POST',
+                        url: locations_url ,
+                        data: {
+                        location: $(this).is(':checked') ? val : null
+                        },
+                        dataType: "JSON",
+                        success: function(result){
+                          if(result.flag == 'success') {
+                              alert(result.message);
+                          }
+                      },
+                      error: function(err){
+                          console.log(err);
+                        }
+                    })
+                }
+            })
           }
       });
+
   });
 </script>
+@endpush

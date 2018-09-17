@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
+use Session;
 
 class LoginController extends Controller {
 
@@ -33,6 +34,7 @@ class LoginController extends Controller {
 			'status' => 1,
 		);
 		if (Auth::attempt($login)) {
+			Session::put('website_language', config('app.locale'));
 			// ham attempt de kiem tra thong tin dang nhap co trung voi DB
 			return redirect()->route('Dashboard.index');
 		} else {

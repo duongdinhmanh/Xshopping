@@ -12,7 +12,7 @@ class Category extends Model {
 	protected $table = "category";
 	protected $fillable = ['imges', 'status'];
 
-	public $translatedAttributes = ['name', 'slug', 'locale'];
+	public $translatedAttributes = ['name', 'slug'];
 
 	public function cat_pro() {
 		return $this->hasMany(products::class, 'cat_id', 'id');

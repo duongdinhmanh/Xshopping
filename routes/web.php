@@ -127,6 +127,7 @@ Route::group(['middleware' => 'locale'], function () {
 
 		Route::resource('Products', 'admin\ProductController');
 		Route::get('Products-data', 'admin\ProductController@getdata')->name('getdata_pro');
+		Route::post('Products-location/{id?}', 'admin\ProductController@change_location')->name('products_location');
 
 		Route::resource('Category', 'admin\CategoryController');
 		Route::post('category-Post', 'admin\CategoryController@add_category_lang')->name('add_category_lang');

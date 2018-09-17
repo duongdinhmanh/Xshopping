@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration {
 			$table->integer('cat_id')->unsigned();
 			$table->text('images');
 			$table->float('sale');
+			$table->string('options');
 			$table->integer('location');
 			$table->string('post');
 			$table->tinyInteger('status');

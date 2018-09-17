@@ -15,6 +15,16 @@ return [
 	'add_category' => 'Thêm Danh Mục Mới Thành Công',
 	'category_edit' => 'Cập Nhật Danh Mục Thành Công',
 	'category_delete' => 'Bạn Đã Xóa Thành Công..!',
+	'seconds_ago' => 'Giây trước',
+	'minute_ago' => 'Phút trưóc',
+	'hours_ago' => 'Giờ trước',
+	'name_pro' => 'Tên Sản Phẩm',
+	'info_products' => 'Thông Tin Sản Phẩm',
+	'info_sale_products' => 'Thông Tin Sale',
+	'Descriptions' => 'Chi Tiết Sản Phẩm',
+	'images' => 'HÌNH ẢNH',
+	'category' => 'DANH MỤC',
+	'location' => 'VỊ TRÍ',
 
 ]
 ?>

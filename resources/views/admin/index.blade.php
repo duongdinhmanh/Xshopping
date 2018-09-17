@@ -84,6 +84,9 @@
 
     <!-- jQuery -->
     <script src="assets/vendors_style/jquery/dist/jquery.min.js"></script>
+    <!-- TypeHead js -->
+    <script src="assets/admin/js/typeahead.bundle.min.js"></script>
+    <script src="assets/admin/js/bloodhound.min.js"></script>
     <!-- Bootstrap -->
     <script src="assets/vendors_style/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -145,8 +148,9 @@
         });
     </script>
 	{{-- ben list_order  --}}
-    @stack('scripts')
-    @stack('datatable_category')
+    @stack('scripts_products')
+    {{-- add - products --}}
+    @stack('search')
     <script src="assets/admin/js/admin.js"></script>
     <script src="assets/admin/js/ajax.js"></script>
   </body>

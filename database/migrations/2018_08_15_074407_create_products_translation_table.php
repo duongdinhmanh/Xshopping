@@ -16,7 +16,6 @@ class CreateProductsTranslationTable extends Migration {
 			$table->integer('products_id')->unsigned();
 			$table->string('name');
 			$table->string('slug');
-			$table->text('options');
 			$table->text('info');
 			$table->text('description');
 			$table->longText('info_sale_product');

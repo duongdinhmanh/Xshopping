@@ -166,7 +166,6 @@ return [
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
 		//  Đăng  kí thêm service
-		App\Providers\RepositoryServiceProvider::class,
 
 	],
 
