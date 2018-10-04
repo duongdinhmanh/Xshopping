@@ -27,11 +27,15 @@
     <!-- bootstrap-daterangepicker -->
     <link href="assets/vendors_style/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <link href="assets/vendors_style/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="assets/vendors_style/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="assets/build/css/custom.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="assets/admin/css/admin.css">
+    {{-- <script>CKEDITOR.dtd.$removeEmpty['span'] = false;</script> --}}
+
   </head>
   <body class="nav-md">
     {{-- <script>
@@ -119,13 +123,17 @@
     <!-- JQVMap -->
     <script src="assets/vendors_style/jqvmap/dist/jquery.vmap.js"></script>
     <script src="assets/vendors_style/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+     <!-- Ion.RangeSlider -->
+    <script src="assets/vendors_style/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
     <script src="assets/vendors_style/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="assets/vendors_style/moment/min/moment.min.js"></script>
     <script src="assets/vendors_style/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <script language="javascript" src="ckeditor/ckeditor.js" type="text/javascript"></script>
+
     <!-- Custom Theme Scripts -->
     <script src="assets/build/js/custom.min.js"></script>
-    <script language="javascript" src="ckeditor/ckeditor.js" type="text/javascript"></script>
     <script type="text/javascript">
         function del_pro(smg){
           // var confirm1 = confirm('Are you Sure : You are delete this..?');
@@ -146,7 +154,12 @@
                 filebrowserImageBrowseUrl : '{!!url('')!!}/assets/filemanager/dialog.php?type=1&editor=ckeditor&fldr='
             });
         });
+         CKEDITOR.config.contentsCss = '{!!url('')!!}/ckeditor/plugins/fontawesome/font-awesome/css/font-awesome.min.css';
+          function myFunction() {
+            document.getElementById("myForm").reset();
+        }
     </script>
+
 	{{-- ben list_order  --}}
     @stack('scripts_products')
     {{-- add - products --}}

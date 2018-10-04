@@ -7,7 +7,7 @@
 @if (Session::has('info_edit'))
   <div class="alert alert-info">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Title!</strong> {{Session::get('info_add')}}
+    <strong>Title!</strong> {{Session::get('info_edit')}}
   </div>
 @endif
 @if (Session::has('show'))

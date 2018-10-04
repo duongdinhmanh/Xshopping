@@ -18,6 +18,10 @@
     border-radius: 25px;
     padding: 10px;
 }
+#lang #vi {
+    width: 19px;
+    height:  15px;
+}
 .page-title .title_right {
     text-align: right;
 }
@@ -80,10 +84,10 @@ ul.bar_tabs {
     margin-bottom: 10px;
 }
 
-#list_add_pro, #list_add_img_pro {
+#list_add_pro, #list_add_img_pro, #list_img_pro_color {
     padding:  0px!important;
 }
-#list_add_pro li, #list_add_img_pro li   {
+#list_add_pro li, #list_add_img_pro li , #list_img_pro_color li  {
     list-style-type: none;
 }
 
@@ -107,4 +111,9 @@ ul.bar_tabs {
 }
 #add_list_products li {
     list-style-type: none;
+}
+
+#img_color {
+    border:  1px solid #ddd;
+    padding:  10px;
 }

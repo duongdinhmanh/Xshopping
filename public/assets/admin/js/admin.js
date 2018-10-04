@@ -53,6 +53,21 @@ $(document).ready(function() {
              };
          });
 });
+
+// Section Img-color
+$(document).ready(function() {
+     window.lastURL = $('#fieldID_img_color').val();
+        setInterval(function () {
+            if($('#fieldID_img_color').val() != window.lastURL) {
+                var url =  $('#fieldID_img_color').val();
+                if(url == '')url = "assets/upload/config/no-image.png";
+                 $('.Preview_img_color').attr('src', url);
+                 window.lastURL = url;
+             };
+         });
+});
+
+
 $(document).ready(function() {
 	$(function () {
 	    $(".input_slug").keyup(function () {
@@ -86,6 +101,39 @@ $(document).ready(function() {
      });
 
      $('#list_add_pro').on('click', '.del_pro_options', function() {
+         if (!confirm('Bạn chắc chắn muốn xóa')) {
+             return false;
+         }else{
+            $(this).closest('li').remove();
+         }
+     });
+});
+
+// Phan add Products - img - color - options
+$(document).ready(function() {
+    var count = 1;
+     $('.add_products_color').click(function() {
+          count += 1;
+        var url = "javascript:open_popup('http://localhost/assets/filemanager/dialog.php?type=1&popup=1&field_id=fieldID_img_color"+count +"')";
+          var html ='<li>';
+                html  +='<div class="col-md-2 col-sm-2 col-xs-3" >';
+                html  +='<a style="height: 100%; margin-bottom: 0px;"  href="'+url+'" class="thumbnail"><img class="Preview_img_color'+count +'" src="assets/upload/config/no-image.png" alt=""> </a><small>* images color product</small> <input id="fieldID_img_color'+count +'" type="hidden" value="" name="color[]" /><a href="'+url+'">';
+                html  +='<button style="margin-bottom: 10px" type="button" class="btn btn-sm btn-success">Choose IMG</button> </a><button style="float: right" type="button" class="btn btn-sm btn-danger del_pro_img"><i class="fa fa-trash" style=""></i></button>';
+                html  +='</div>';
+                html  +='</li>';
+          $('#list_img_pro_color').append(html);
+
+        window.lastURL = $('#fieldID_img_color'+count+'').val();
+        setInterval(function () {
+            if($('#fieldID_img_color'+count+'').val() != window.lastURL) {
+                var url =  $('#fieldID_img_color'+count+'').val();
+                if(url == '')url = "assets/upload/config/no-image.png";
+                 $('.Preview_img_color'+count+'').attr('src', url);
+                 window.lastURL = url;
+             };
+         });
+     });
+     $('#list_img_pro_color').on('click', '.del_pro_img', function() {
          if (!confirm('Bạn chắc chắn muốn xóa')) {
              return false;
          }else{

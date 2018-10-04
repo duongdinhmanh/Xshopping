@@ -14,7 +14,6 @@
 Route::get('/', function () {
 	return view('welcome');
 });
-
 Route::group(['middleware' => 'locale'], function () {
 // Route::get('/',[
 	//  'as'=>'home',
@@ -119,21 +118,22 @@ Route::group(['middleware' => 'locale'], function () {
 	Route::get('admin/LogOut', 'admin\LoginController@AdminlogOut');
 
 	Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin', 'locale']], function () {
+		// App::setLocale($lang); //đặt dòng này ở đầu
 		Route::resource('Dashboard', 'admin\DashboardController');
 		Route::get('change-language/{lang}', [
 			'as' => 'change_lang',
 			'uses' => 'admin\DashboardController@change_lang',
 		]);
-
 		Route::resource('Products', 'admin\ProductController');
+		Route::get('Products-location/{id}/{location?}', 'admin\ProductController@change_location')->name('products_location');
+		Route::post('Products-add', 'admin\ProductController@Add_Products_lang')->name('products_add_lang');
 		Route::get('Products-data', 'admin\ProductController@getdata')->name('getdata_pro');
-		Route::post('Products-location/{id?}', 'admin\ProductController@change_location')->name('products_location');
 
 		Route::resource('Category', 'admin\CategoryController');
 		Route::post('category-Post', 'admin\CategoryController@add_category_lang')->name('add_category_lang');
 
 		Route::post('category-del/{id?}', 'admin\CategoryController@del_cat')->name('del_category');
-		Route::post('sub-category-del/{id?}', 'admin\CategoryController@del_sub_cat')->name('del_sub_category');
+		Route::post('sub-category-del/{id}/{location}', 'admin\CategoryController@del_sub_cat')->name('del_sub_category');
 		Route::post('sub-category-show/{id?}', 'admin\CategoryController@show_sub_cat')->name('show_sub_category');
 		Route::post('category-edit/{id}', 'admin\CategoryController@cat_edit_vi')->name('cat_edit_lang');
 

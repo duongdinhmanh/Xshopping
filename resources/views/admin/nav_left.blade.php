@@ -36,14 +36,14 @@
         </li>
         <li><a> <i class="fa fa-cubes"></i></i> Products <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="{{ route('Products.index') }}">List of Products</a></li>
-            <li><a href="{{ route('Products.create') }}">Add New Product</a></li>
+            <li><a href="{{ route('Products.index' ) }}">List of Products</a></li>
+            <li><a href="{{ route('Products.create' ) }}">Create New Product</a></li>
           </ul>
         </li>
         <li><a><i class="fa fa-sitemap ion"></i>Category <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{ route('Category.index') }}">List of Category</a></li>
-            <li><a href="{{ route('Category.create') }}">Add New Category</a></li>
+            <li><a href="{{ route('Category.create') }}">Create New Category</a></li>
           </ul>
         </li>
         <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>

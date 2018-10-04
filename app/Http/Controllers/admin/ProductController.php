@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 use App;
-use App\Category;
 use App\Http\Controllers\Controller;
-use App\images_pro;
-use App\products;
-use App\productsTranslation;
+use App\Model\Images_Pro;
+use App\Model\Products;
+use App\Model\ProductsTranslation;
+use App\Repositories\InterfaceRepository\CategoryInterfaceRepository;
+use App\Repositories\InterfaceRepository\ProductsInterfaceRepository;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -16,90 +17,37 @@ class ProductController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
+	protected $productsRepository;
+	protected $categoryRepository;
+
+	public function __construct(ProductsInterfaceRepository $productsRepository, CategoryInterfaceRepository $categoryRepository) {
+		$this->productsRepository = $productsRepository;
+		$this->categoryRepository = $categoryRepository;
+	}
+
 	public function index() {
 		return view('admin.products.home');
 	}
 
 	public function getdata() {
-		$list = products::select('id', 'images', 'cat_id', 'location', 'status', 'created_at')->get();
+		$list = Products::select('id', 'images', 'location', 'status', 'created_at')->get();
 		return Datatables::of($list)->addColumn('action', function ($list) {
-			return '<a href="' . route("Products.edit", $list->id) . ' " class="btn btn-xs btn-primary" title="order_detail" >
-                        <i class="glyphicon glyphicon-edit"></i>
-                        detail
-                    </a>
-                    <a href=" " class="btn btn-xs btn-danger" title="delete order">
-                        <i class="fa fa-trash" style="padding: 3px"></i>
-                    </a>';
-		})->addColumn('cat_id', function ($list) {
-			$pro_cat_id = $list->cat_id;
-			$cat_name = Category::where('id', $pro_cat_id)->get();
-			foreach ($cat_name as $value) {
-				return $value->name;
-			}
+			return true;
 		})->addColumn('location', function ($list) {
 			$pro_location = $list->location;
 			if ($pro_location == 1) {
-				return '<div class="radio">
-			                             <label>
-			                               <input  type="radio" name="location" locations="' . route('products_location', $list->id) . '"  value="1" checked>  LATEST
-			                             </label>
-			                           </div>
-			                           <div class="radio">
-			                             <label>
-			                               <input type="radio" name="location" locations="' . route('products_location', $list->id) . '"   value="2">  TOP RATING
-			                             </label>
-			                           </div>
-			                           <div class="radio">
-			                             <label>
-			                               <input type="radio"  name="location" locations="' . route('products_location', $list->id) . '"  value="3"> FAVOURITE
-			                             </label>
-			                           </div>';
+				return '<div class="radio"> <label><input locations="' . route("products_location", $list->id) . '" checked type="radio"  value="1" id="optionsRadios1" > ' . __('config.LATEST') . '</label></div><div class="radio"> <label><input locations="' . route("products_location", $list->id) . '"  type="radio"  value="2" id="optionsRadios1" >' . __('config.TOP_RATING') . '</label></div><div class="radio"> <label><input locations="' . route("products_location", $list->id) . '"  type="radio"  value="3" id="optionsRadios1" >' . __('config.FAVOURITE') . '</label></div>';
 			} else if ($pro_location == 2) {
-				return '<div class="radio" >
-			                           <label>
-			                             <input type="radio" name="location" locations="' . route('products_location', $list->id) . '"  value="1" >  LATEST
-			                           </label>
-			                         </div>
-			                       <div class="radio">
-			                           <label>
-			                               <input  type="radio" name="location" locations="' . route('products_location', $list->id) . '"  checked value="2">  TOP RATING
-			                           </label>
-			                       </div>
-			                       <div class="radio ">
-			                           <label>
-			                               <input  type="radio" name="location" locations="' . route('products_location', $list->id) . '"  value="3"> FAVOURITE
-			                           </label>
-			                       </div>';
+				return '<div class="radio"> <label><input locations="' . route('products_location', $list->id) . '"  type="radio"  value="1" id="optionsRadios1" > ' . __('config.LATEST') . '</label></div><div class="radio"> <label><input locations="' . route('products_location', $list->id) . '"  checked type="radio"  value="2" id="optionsRadios1" >' . __('config.TOP_RATING') . '</label></div><div class="radio"> <label><input locations="' . route('products_location', $list->id) . '"  type="radio"  value="3" id="optionsRadios1" >' . __('config.FAVOURITE') . '</label></div>';
 			} else {
-				return '<div class="radio">
-			                           <label>
-			                             <input type="radio" name="location" locations="' . route('products_location', $list->id) . '"  value="1" >  LATEST
-			                           </label>
-			                           </div>
-			                           <div class="radio">
-			                               <label>
-			                                   <input type="radio" name="location" locations="' . route('products_location', $list->id) . '"   value="2">  TOP RATING
-			                               </label>
-			                           </div>
-			                           <div class="radio">
-			                               <label>
-			                                   <input  type="radio" name="location" locations="' . route('products_location', $list->id) . '"  checked value="3"> FAVOURITE
-			                               </label>
-			                           </div>';
-			}
-		})->addColumn('status', function ($list) {
-			$order_status = $list->status;
-			if ($order_status == 0) {
-				return '<button class="btn btn-xs btn-warning">no checked</button>';
-			} else {
-				return '<button class="btn btn-xs btn-success">checked</button>';
+				return '<div class="radio"> <label><input locations="' . route('products_location', $list->id) . '"  type="radio"  value="1" id="optionsRadios1" > ' . __('config.LATEST') . '</label></div><div class="radio"> <label><input locations="' . route('products_location', $list->id) . '" type="radio"  value="2" id="optionsRadios1" >' . __('config.TOP_RATING') . '</label></div><div class="radio"> <label><input checked locations="' . route('products_location', $list->id) . '"  type="radio"  value="3" id="optionsRadios1" >' . __('config.FAVOURITE') . '</label></div>';
 			}
 		})->addColumn('created_at', function ($list) {
 			$time = $list->created_at;
 			if ($time) {
 				return $time->format('d.m.Y H:i:t');
 			}
-		})->rawColumns(['cat_id', 'location', 'created_at', 'status', 'action'])->make(true);
+		})->rawColumns(['location', 'created_at', 'status', 'action'])->make(true);
 	}
 
 	/**
@@ -108,8 +56,9 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$cat_pro = Category::all();
-		return view('admin.products.add', compact('cat_pro'));
+		$cat_pro_main = $this->categoryRepository->all()->catParent()->get();
+		$cat_pro_related = $this->categoryRepository->all()->get();
+		return view('admin.products.add', compact('cat_pro_main', 'cat_pro_related'));
 	}
 
 	/**
@@ -120,8 +69,7 @@ class ProductController extends Controller {
 	 */
 	public function store(Request $request) {
 
-		$add_products = new products();
-		$add_products->cat_id = $request->cat_id;
+		$add_Products = new Products();
 		$img_pro = $request->images;
 		$data_pro_img = array();
 		if ($img_pro) {
@@ -134,23 +82,46 @@ class ProductController extends Controller {
 					$hinh_pro = str_random(4) . "_" . $file;
 				}
 				file_put_contents("assets/upload/products/$hinh_pro", $img);
-				$add_products->images = $hinh_pro;
+				$add_Products->images = $hinh_pro;
 			} else {
-				$add_products->images = '';
+				$add_Products->images = '';
 			}
+		}
+
+		$img_pro_color = $request->color;
+		$data_pro_img_color = array();
+		$img_color = array();
+		if ($img_pro_color) {
+			foreach ($img_pro_color as $val) {
+				$data_pro_img_color = explode('/', $val);
+				$file_img_detai_color = $data_pro_img_color[6];
+				$img_detail = file_get_contents($val);
+				if (!empty($img_detail)) {
+					$hinh_pro_detail_color = str_random(4) . "_" . basename($file_img_detai_color);
+					while (file_exists("assets/upload/images_color/" . $hinh_pro_detail_color)) {
+						$hinh_pro_detail_color = str_random(4) . "_" . $file_img_detai_color;
+					}
+					file_put_contents("assets/upload/images_color/$hinh_pro_detail_color", $img_detail);
+					array_push($img_color, $hinh_pro_detail_color);
+				} else {
+					$add_Products->color = '';
+				}
+				$add_Products->color = json_encode($img_color);
+			}
+
 		}
 		$sizes = $request->size;
 		$prices = $request->price;
 		$array_options = array_combine($sizes, $prices);
-		$add_products->options_price = json_encode($array_options);
-		$add_products->sale = $request->sale;
-		$add_products->location = $request->location;
+		$add_Products->option_price = json_encode($array_options);
+		$add_Products->sale = $request->sale;
+		$add_Products->location = $request->location;
 		$array_post = $request->post;
-		$add_products->post = json_encode($array_post);
-		$add_products->status = $request->status;
-		$add_products->save();
+		$add_Products->post = json_encode($array_post);
+		$add_Products->status = $request->status;
+		$add_Products->save();
 
-		$product_id = $add_products->id;
+		$product_id = $add_Products->id;
 		$img_pro_detail = $request->images_detail;
 		$data_pro_img_detail = array();
 		if ($img_pro_detail) {
@@ -174,8 +145,14 @@ class ProductController extends Controller {
 			}
 		}
 
-		$add_pro_en = new productsTranslation();
-		$add_pro_en->products_id = $add_products->id;
+		$cat_id = $request->cat_id;
+		$product = $this->productsRepository->find($product_id);
+		foreach ($cat_id as $cat_pro) {
+			$product->pro_cat()->attach($cat_pro);
+		}
+
+		$add_pro_en = new ProductsTranslation();
+		$add_pro_en->Products_id = $add_Products->id;
 		$add_pro_en->name = $request->name;
 		$add_pro_en->slug = $request->slug;
 		$add_pro_en->info = $request->info;
@@ -185,8 +162,23 @@ class ProductController extends Controller {
 		$add_pro_en->status = $request->status;
 		$add_pro_en->save();
 
-		return redirect()->route('Products.index')->with('info_add', 'Add new products .. ! ');
+		return redirect()->route('Products.index')->with('info_add', 'Add new Products .. ! ');
 
+	}
+
+	public function Add_Products_lang(Request $request) {
+		$products_lang_vi = new ProductsTranslation();
+		$products_lang_vi->products_id = $request->products_id;
+		$products_lang_vi->name = $request->name_vi;
+		$products_lang_vi->slug = $request->slug_vi;
+		$products_lang_vi->info = $request->info_vi;
+		$products_lang_vi->description = $request->description_vi;
+		$products_lang_vi->info_sale_product = $request->info_sale_product_vi;
+		$products_lang_vi->locale = 'vi';
+		$products_lang_vi->status = $request->status;
+		$products_lang_vi->save();
+
+		return redirect()->route('Products.index')->with('info_add', 'Add new Products .. ! ');
 	}
 
 	/**
@@ -230,9 +222,9 @@ class ProductController extends Controller {
 		//
 	}
 
-	public function change_location(Request $request, $id) {
-		$change_location = products::find($id);
-		$change_location->location = $request->location;
+	public function change_location(Request $request, $id, $location) {
+		$change_location = Products::find($id);
+		$change_location->location = $location;
 		$change_location->save();
 		return response()->json(['flag' => 'success', 'message' => 'Update Sussesfully.....']);
 	}

@@ -97,5 +97,24 @@ function slugTitle($string, $keyReplace = "/") {
 	$string = str_replace($keyReplace, "-", $string);
 	return strtolower($string);
 }
+// public - images
+function getImage($image, $url) {
+	if ($image) {
+		$data_cat_img = explode('/', $image);
+		$file = $data_cat_img[6];
+		$img = file_get_contents($image);
+		if (!empty($img)) {
+			$file_images = str_random(4) . "_" . basename($file);
+			while (file_exists("assets/upload/" . $url . "/" . $file_images)) {
+				$file_images = str_random(4) . "_" . $file;
+			}
+			file_put_contents("assets/upload/category/$file_images", $img);
+			return $file_images;
+		}
+	} else {
+		return null;
+	}
+
+}
 
 ?>﻿

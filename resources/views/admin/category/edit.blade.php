@@ -16,7 +16,7 @@
 			  <ul id="lang" class="dropdown-menu" style="z-index: 999999">
 			    <li>
                     <a href="{!! route('change_lang',['vi']) !!}">
-			    	    <img src="assets/upload/config/vn.png" alt="">Việt Nam
+			    	    <img id="vi" src="assets/upload/config/vn.png" alt="">Việt Nam
 			    	</a>
 			    </li>
 			    <li><a href="{!! route('change_lang',['en']) !!}">
@@ -94,7 +94,7 @@
                                 <div class="clearfix"></div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input id="fieldID" type="hidden" value="{!! url('') !!}/assets/upload/category/{{ $cat_edit->images }}" accept=".png, .jpg, .jpeg" name="Hinh_category" />
+                                        <input id="fieldID" type="hidden" value="{!! url('') !!}/assets/upload/category/{{ $cat_edit->images }}" accept=".png, .jpg, .jpeg" name="images" />
                                     <a href="javascript:open_popup('{!!url('')!!}/assets/filemanager/dialog.php?type=1&popup=1&field_id=fieldID')">
                                      <button style="margin-bottom: 10px" type="button" class="btn btn-success">Choose IMG</button>
                                     </a>

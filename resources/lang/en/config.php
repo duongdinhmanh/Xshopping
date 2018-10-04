@@ -26,6 +26,10 @@ return [
 	'images' => 'IMAGES',
 	'category' => 'CATEGORY',
 	'location' => 'LOCATION',
+	'LATEST' => 'LATEST',
+	'TOP_RATING' => 'TOP RATING',
+	'FAVOURITE' => 'FAVOURITE',
+	'Edit' => 'Edit',
 ]
 
 ?>

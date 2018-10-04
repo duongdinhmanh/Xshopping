@@ -25,6 +25,10 @@ return [
 	'images' => 'HÌNH ẢNH',
 	'category' => 'DANH MỤC',
 	'location' => 'VỊ TRÍ',
+	'LATEST' => 'Sản Phẩm Mới',
+	'TOP_RATING' => 'Xếp Hạng Cao Nhất',
+	'FAVOURITE' => 'Sản Phẩm Yêu thích',
+	'Edit' => 'Chỉnh sữa',
 
 ]
 ?>

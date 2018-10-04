@@ -15,6 +15,7 @@ class Locale {
 	 * @return mixed
 	 */
 	public function handle($request, Closure $next) {
+
 		$lang = Session::get('website_language', config('app.locale'));
 		// Lấy dữ liệu lưu trong Session, không có thì trả về default lấy trong config
 		App::setLocale($lang);

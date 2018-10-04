@@ -15,7 +15,7 @@
                 </button>
                 <ul id="lang" class="dropdown-menu" style="z-index: 999999">
                     <li><a href="{!! route('change_lang',['vi']) !!}">
-                        <img src="assets/upload/config/vn.png" alt=""> Việt Nam
+                        <img id="vi"  src="assets/upload/config/vn.png" alt=""> Việt Nam
                     </a>
                     </li>
                     <li><a href="{!! route('change_lang',['en']) !!}">
@@ -37,7 +37,7 @@
 						<th>ID</th>
 						<th>{{ trans('config.images') }}</th>
 						<th>{{ trans('config.name_pro') }}</th>
-						<th>{{ trans('config.category') }}</th>
+					{{-- 	<th>{{ trans('config.category') }}</th> --}}
 						<th>{{ trans('config.location') }}</th>
                         <th>{{ trans('config.Created_at') }}</th>
 						<th>{{ trans('config.Status') }}</th>
@@ -48,7 +48,7 @@
 					<tr>
 						<th></th>
 						<th class="row_none"></th>
-						<th></th>
+						{{-- <th></th> --}}
 						<th></th>
 						<th class="row_none"></th>
                         <th></th>
@@ -64,23 +64,34 @@
 @push('scripts_products')
 <script>
   $(function() {
-      $('#users-table').DataTable({
+    $('#users-table').DataTable({
           "processing": true,
           "serverSide": true,
           "ajax": "{{ route('getdata_pro') }}",
          "columns": [
-              { "data": 'id', "name": 'ID' },
-              { "data": 'images', "name": 'images',
+            { "data": 'id', "name": 'id' },
+            { "data": 'images', "name": 'images',
                 "render": function (data, type, full, meta) {
-                    return "<img src=\"assets/upload/products/" + data + "\" height=\"auto\" \" width=\"50\"/>";
+                 return "<img src=\"assets/upload/products/" + data + "\" height=\"auto\" \" width=\"50\"/>";
+            },
+            },
+            { "data": 'name', "name": 'name' },
+            // { "data": 'cat_id', "name": 'cat_id ' },
+            { "data": 'location', "name": 'location',orderable: false, searchable: false},
+            { "data": 'created_at', "name": 'created_at' },
+            { "data": 'status', "name": 'status',
+                "render": function (data) {
+                    if (data == 0) {
+                        return "<button class=\"btn btn-xs btn-warning\">no checked</button>";
+                    }else{
+                         return "<button class=\"btn btn-xs btn-success\">checked</button>";
+                    }
                 },
-              },
-              { "data": 'name', "name": 'name' },
-              { "data": 'cat_id', "name": 'cat_id ' },
-              { "data": 'location', "name": 'location' },
-              { "data": 'created_at', "name": 'created_at' },
-              { "data": 'status', "name": 'status'},
-              { "data": 'action', "name": 'action', orderable: false, searchable: false},
+            },
+            { "data": 'action', "name": 'action',
+                "render":function(data,id){
+                    return '<a href=\"  \" class=\"btn btn-xs btn-primary\" title=\"order_detail\" ><i class=\"glyphicon glyphicon-edit\"></i> '+@json(__('config.Edit')) +'</a><a href=\" \" class=\"btn btn-xs btn-danger\" title=\"delete order\"><i class=\"fa fa-trash\" style=\"padding: 3px\"></i></a>';
+                },orderable: false, searchable: false},
           ],
           initComplete: function () {
             this.api().columns().every( function () {
@@ -103,7 +114,8 @@
                     }
                 } );
             } );
-            $('.radio input[name="location"]').on('click', function() {
+            $('.radio input[type="radio"]').on('click', function() {
+                var $this = $(this);
                 var locations_url = $(this).attr('locations');
                 var val = $(this).val();
                 if (del_pro('you really want to change locations..?')==true) {
@@ -113,15 +125,17 @@
                         }
                     });
                     $.ajax({
-                        type: 'POST',
-                        url: locations_url ,
+                        type: 'GET',
+                        url: locations_url+'/'+val ,
                         data: {
                         location: $(this).is(':checked') ? val : null
                         },
                         dataType: "JSON",
                         success: function(result){
                           if(result.flag == 'success') {
-                              alert(result.message);
+                            alert(result.message);
+                            $this.closest('tr').find('.radio input[type="radio"]').removeAttr('checked');
+                            $this.prop('checked', true);
                           }
                       },
                       error: function(err){
@@ -129,10 +143,10 @@
                         }
                     })
                 }
-            })
-          }
-      });
+            });
+        }
+    });
 
-  });
+});
 </script>
 @endpush

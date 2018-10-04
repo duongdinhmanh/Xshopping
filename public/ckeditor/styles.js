@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
@@ -75,7 +75,7 @@ CKEDITOR.stylesSet.add( 'default', [
 
 	{ name: 'Cited Work',		element: 'cite' },
 	{ name: 'Inline Quotation',	element: 'q' },
-
+    { name: 'insert', items: ['FontAwesome', 'Source'] },
 	{ name: 'Language: RTL',	element: 'span', attributes: { 'dir': 'rtl' } },
 	{ name: 'Language: LTR',	element: 'span', attributes: { 'dir': 'ltr' } },
 

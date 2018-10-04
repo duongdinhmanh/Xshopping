@@ -16,7 +16,7 @@
 			  <ul id="lang" class="dropdown-menu" style="z-index: 999999">
 			    <li>
                     <a href="{!! route('change_lang',['vi']) !!}">
-			    		<img src="assets/upload/config/vn.png" alt=""> Việt Nam
+			    		<img id="vi"  src="assets/upload/config/vn.png" alt=""> Việt Nam
 			    	</a>
 			    </li>
 			    <li><a href="{!! route('change_lang',['en']) !!}">
@@ -30,7 +30,7 @@
 	<div class="clearfix clearfix_top"></div>
 	<div class="row">
         @if ( Session::get('website_language') == 'en')
-            <form class="form-horizontal form-label-left" action="{{ route('Products.store') }}"  method="POST" enctype="multipart/form-data">
+            <form id= "myForm" class="form-horizontal form-label-left" action="{{ route('Products.store') }}"  method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{!! csrf_token() !!}">
         		<div class="col-md-9 col-sm-9 col-xs-12">
         			<div class="x_panel">
@@ -52,17 +52,29 @@
             						</div>
             					</div>
             					<div class="item form-group">
-            						<label class="control-label col-md-2 col-sm-2 col-xs-12" >Category <span class="required">*</span>
+            						<label class="control-label col-md-2 col-sm-2 col-xs-12" >Main - Category <span class="required">*</span>
             						</label>
             						<div class="col-md-10 col-sm-10 col-xs-12">
-            	                         <select class="form-control" name="cat_id">
-                                           @php
-                                               cate_parent($cat_pro);
-                                           @endphp
+            	                         <select class="form-control" name="cat_id[]">
+                                            @foreach ($cat_pro_main as $cat)
+                                                 <option value="{{ $cat->id }}"> ==|| {{ $cat->name }}</option>
+                                            @endforeach
             	                         </select>
                                          <small>* Please select the appropriate category for the product...</small>
                                     </div>
             					</div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" >Related - Category <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-10 col-sm-10 col-xs-12">
+                                         <select class="form-control" name="cat_id[]">
+                                           @php
+                                               cate_parent($cat_pro_related);
+                                           @endphp
+                                         </select>
+                                         <small>* Please select the appropriate category for the product...</small>
+                                    </div>
+                                </div>
                                 <div class="item form-group">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12" >Options <span class="required">*</span>
                                     </label>
@@ -71,10 +83,17 @@
                                             <li>
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 add_pro">
-                                                        <input type="text"  name="size[]" class="form-control" placeholder="Size - product ...">
+                                                        <select class="form-control " name="size[]">
+                                                            <option value="S">S</option>
+                                                            <option value="M">M</option>
+                                                            <option value="L">L</option>
+                                                            <option value="XL">XL</option>
+                                                            <option value="XXL">XXL</option>
+                                                            <option value="2XXL">2XXL</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 add_pro">
-                                                        <input type="text"  name="price[]" class="form-control " placeholder="Price- product ...">
+                                                        <input type="text"  name="price[]" class="form-control " placeholder="Price - product ...">
                                                     </div>
                                                     <div class="col-md-12">
                                                         <button type="button" class="btn btn-danger del_pro_options" style="margin-bottom: 12px">
@@ -90,7 +109,36 @@
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12" > <span class="required"></span>
                                     </label>
                                         <div class="col-md-4 col-sm-4 col-xs-12">
-                                            <button type="button" class="btn btn-success add_products">add options</button>
+                                            <button style="margin-bottom: 50px" type="button" class="btn btn-success add_products">add options</button>
+                                        </div>
+                                </div>
+                                <div class="form-group" id="img_product">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" >Products-Image-color <span class="required">*</span></label>
+                                    <div class="col-md-10 col-sm-10 col-xs-6" id="img_color">
+                                        <ul id="list_img_pro_color">
+                                            <li>
+                                                <div class="col-md-2 col-sm-2 col-xs-3" >
+                                                    <a   style="height: 100%; margin-bottom: 0px;"  href="javascript:open_popup('{!!url('')!!}/assets/filemanager/dialog.php?type=1&popup=1&field_id=fieldID_img_color')" class="thumbnail">
+                                                        <img class="Preview_img_color" src="assets/upload/config/no-image.png" alt="">
+                                                    </a>
+                                                    <small>* images color product</small>
+                                                    <input id="fieldID_img_color" type="hidden" value="" name="color[]" />
+                                                    <a href="javascript:open_popup('{!!url('')!!}/assets/filemanager/dialog.php?type=1&popup=1&field_id=fieldID_img_color')">
+                                                        <button style="margin-bottom: 10px" type="button" class="btn btn-sm btn-success">Choose IMG</button>
+                                                    </a>
+                                                    <button style="float: right" type="button" class="btn btn-sm btn-danger del_pro_img">
+                                                        <i class="fa fa-trash" style=""></i>
+                                                     </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" > <span class="required"></span>
+                                    </label>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <button style="margin-bottom: 50px" type="button" class="btn btn-success add_products_color">add color</button>
                                         </div>
                                 </div>
                                  <div class="item form-group">
@@ -255,8 +303,8 @@
                 <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-ban"> Cancel</i></button>
                             <button id="send" type="submit" class="btn btn-success"><i class="fa fa-save"> Save</i></button>
+                            <button type="button" class="btn btn-primary" onclick="myFunction()"><i class="fa fa-ban"> Cancel</i></button>
                         </div>
                     </div>
             </form>
@@ -264,7 +312,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_content">
-                    <form class="form-horizontal form-label-left" action=""  method="POST" enctype="multipart/form-data">
+                    <form class="form-horizontal form-label-left" action="{{ route('products_add_lang') }}"  method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                             <div class="item form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" >{{ trans('config.name_pro') }} <span class="required">*</span>
@@ -359,7 +407,7 @@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right">
                                     <button id="send" type="submit" class="btn btn-success"><i class="fa fa-save"> Save</i></button>
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-ban"> Cancel</i></button>
+                                    <button type="button" class="btn btn-primary" onclick="myFunction()"><i class="fa fa-ban"> Cancel</i></button>
                                 </div>
                             </div>
                     </form>
@@ -403,9 +451,9 @@
                         empty: [
                             '<div class="header-title"><h2>Danh sách tìm kiếm</h2></div><div class="list-group search-results-dropdown"><div class="list-group-item">Không tìm thấy..?</div></div>'
                         ],
-                        header: [
-                            '<div class="header-title"><h2>Search List Products</h2></div><div class="list-group search-results-dropdown"></div>'
-                        ],
+                        // header: [
+                        //     '<div class="header-title"><h2>Search List Products</h2></div><div class="list-group search-results-dropdown"></div>'
+                        // ],
                         suggestion: function (data) {
 
                             return '<a id="services-list" data-id='+ data.id + ' onclick="return clickServicesList(this);" class="list-group-item"><div class="row"><div class="col-md-1 col-sm-1 col-xs-1"><img style="width: 50px; height: auto; overflow: hidden; border-right: 1px solid #dcdcdc" src="assets/upload/products/'+data.images+'" alt=""></div><div class="col-md-11 col-sm-11 col-xs-11"><p>'+data.name+'</p></div></div><input type="hidden" name="products_id" value="'+data.id+'" /></a>';
@@ -420,19 +468,19 @@
             return false;
         }
 
-        function getIdList() {
-            var ids = [];
-            $("#add_list_products>li>.list-group-item").each(function() {
-                ids.push($(this).data('id'));
-            });
-            return ids;
-        }
+        // function getIdList() {
+        //     var ids = [];
+        //     $("#add_list_products>li>.list-group-item").each(function() {
+        //         ids.push($(this).data('id'));
+        //     });
+        //     return ids;
+        // }
 
-        $(document).ready(function() {
-            $('.myform').submit(function(event) {
-                $('input[name="services_hot"]').val(getIdList());
-            });
-            return false;
-        });
+        // $(document).ready(function() {
+        //     $('.myform').submit(function(event) {
+        //         $('input[name="services_hot"]').val(getIdList());
+        //     });
+        //     return false;
+        // });
     </script>
 @endpush

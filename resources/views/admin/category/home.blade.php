@@ -15,7 +15,7 @@
                 </button>
                 <ul id="lang" class="dropdown-menu" style="z-index: 999999">
                     <li><a href="{!! route('change_lang',['vi']) !!}">
-                        <img src="assets/upload/config/vn.png" alt=""> Việt Nam
+                        <img id="vi" src="assets/upload/config/vn.png" alt=""> Việt Nam
                     </a>
                     </li>
                     <li><a href="{!! route('change_lang',['en']) !!}">
